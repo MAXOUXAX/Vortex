@@ -2,6 +2,7 @@ package me.maxouxax.vortex;
 
 import me.maxouxax.vortex.commands.CommandMap;
 import me.maxouxax.vortex.database.DatabaseManager;
+import me.maxouxax.vortex.forwarding.ForwardingListener;
 import me.maxouxax.vortex.forwarding.ForwardingManager;
 import me.maxouxax.vortex.listeners.DiscordListener;
 import me.maxouxax.vortex.utils.ConfigurationManager;
@@ -77,6 +78,7 @@ public class BOT implements Runnable{
                 GatewayIntent.GUILD_VOICE_STATES)
                 .build();
         jda.addEventListener(new DiscordListener(commandMap));
+        jda.addEventListener(new ForwardingListener());
         jda.getPresence().setActivity(Activity.playing(configurationManager.getStringValue("gameName")));
         jda.awaitReady();
     }

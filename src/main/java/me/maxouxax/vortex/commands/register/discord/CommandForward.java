@@ -29,47 +29,58 @@ public class CommandForward {
             description="Permet de configurer un profil de transfert",
             help = "forward help\nforward configure <#salon cible> <@role>\nforward list\nforward remove <#salon source>", example = "forward configure <#salon cible> <@role>")
     private void forward(TextChannel channel, Message message, String[] args) throws SQLException {
-        if(args.length == 0 || args[0].equalsIgnoreCase("help")){
+        if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
             channel.sendMessage(commandMap.getHelpEmbed("forward")).queue();
-        }else{
+        } else {
             String arg1 = args[0];
-            if(arg1.equalsIgnoreCase("configure")){
-                if(args.length >= 3){
-                    if(message.getMentionedChannels().size() == 1 && message.getMentionedRoles().size() == 1) {
+            if (arg1.equalsIgnoreCase("configure")) {
+                if (args.length >= 3) {
+                    if (message.getMentionedChannels().size() == 1 && message.getMentionedRoles().size() == 1) {
                         TextChannel targetChannel = message.getMentionedChannels().get(0);
                         Role role = message.getMentionedRoles().get(0);
-                        if(bot.getForwardingManager().configureNewForwardedChannel(channel.getGuild(), channel,targetChannel, role)){
+                        if (bot.getForwardingManager().configureNewForwardedChannel(channel.getGuild(), channel, targetChannel, role)) {
                             channel.sendMessage(new EmbedCrafter().setTitle("Configuration d'un transfert réussie !")
-                                    .setDescription("Désormais, l'ensemble des messages postés dans "+channel.getAsMention()
-                                            +" seront transférés dans "+targetChannel.getAsMention()
-                                            +" et le rôle "+role.getAsMention()+" sera notifié !")
+                                    .setDescription("Désormais, l'ensemble des messages postés dans " + channel.getAsMention()
+                                            + " seront transférés dans " + targetChannel.getAsMention()
+                                            + " et le rôle " + role.getAsMention() + " sera notifié !")
                                     .setColor(Color.GREEN).build()).queue();
-                        }else{
+                        } else {
                             channel.sendMessage(new EmbedCrafter().setTitle("Configuration d'un transfert échouée")
-                            .setDescription("Un transfert entre ces deux salons est déjà configuré !\n" +
-                                    "Consultez la liste des transferts configurés avec `"+commandMap.getDiscordTag()+"forward list` " +
-                                    "et modifier la configuration d'un transfert avec `"+commandMap.getDiscordTag()+"forward edit` !")
+                                    .setDescription("Un transfert entre ces deux salons est déjà configuré !\n" +
+                                            "Consultez la liste des transferts configurés avec `" + commandMap.getDiscordTag() + "forward list` " +
+                                            "et supprimez un transfert avec `" + commandMap.getDiscordTag() + "forward remove` !")
                                     .setColor(Color.RED).build()).queue();
                         }
-                    }else{
+                    } else {
                         channel.sendMessage(commandMap.getHelpEmbed("forward")).queue();
                     }
-                }else{
+                } else {
                     channel.sendMessage(commandMap.getHelpEmbed("forward")).queue();
                 }
-            }else if(arg1.equalsIgnoreCase("list")){
+            } else if (arg1.equalsIgnoreCase("list")) {
                 channel.sendMessage(listChannels(bot.getForwardingManager().getForwardedChannelArrayList()).build()).queue();
-            }else if(arg1.equalsIgnoreCase("remove")){
-                if(message.getMentionedChannels().size() == 1) {
+            } else if (arg1.equalsIgnoreCase("remove")) {
+                if (message.getMentionedChannels().size() == 1) {
                     TextChannel source = message.getMentionedChannels().get(0);
                     ArrayList<ForwardedChannel> forwardedChannelArrayList = bot.getForwardingManager().getForwardedChannelArrayList().stream().filter(forwardedChannel -> forwardedChannel.getSource().getId().equalsIgnoreCase(source.getId())).collect(Collectors.toCollection(ArrayList::new));
-                    if(forwardedChannelArrayList.size() > 1){
-                        EmbedCrafter embedCrafter = listChannels(forwardedChannelArrayList);
-                        embedCrafter.setTitle("Veuillez choisir le transfert à supprimer")
-                                .setDescription("Plusieurs configurations de transfert ont été trouvées pour le salon source "+source.getAsMention()+"\nVeuillez choisir le salon approprié avec les réactions ci-dessous\n\n"+embedCrafter.getDescription())
-                                .setColor(Color.CYAN);
-                        channel.sendMessage(embedCrafter.build()).queue();
+                    if (forwardedChannelArrayList.size() > 1) {
+                        /*if(forwardedChannelArrayList.size() < 10) {
+                            EmbedCrafter embedCrafter = listChannels(forwardedChannelArrayList);
+                            embedCrafter.setTitle("Veuillez choisir le transfert à supprimer")
+                                    .setDescription("Plusieurs configurations de transfert ont été trouvées pour le salon source " + source.getAsMention() + "\nVeuillez choisir le salon approprié avec les réactions ci-dessous\n\n" + embedCrafter.getDescription())
+                                    .setColor(Color.CYAN);
+                            channel.sendMessage(embedCrafter.build()).queue(interactiveMessage -> {
+                                for (int i = 0; i < forwardedChannelArrayList.size(); i++) {
+                                    interactiveMessage.addReaction(bot.getJda().getEmotesByName(EmojiMatcher.getEmojiFromInteger(i).getValue(), true).get(0)).queue();
+                                }
+
+                            });
+                         */
+                        channel.sendMessage("Impossible de répondre à cette requête, plusieurs transferts ayant le même salon source ont été trouvés !").queue();
+                    } else {
+                        channel.sendMessage("Impossible de répondre à cette requête, plus de 10 transferts ayant le même salon source ont été trouvés !").queue();
                     }
+
                 }
             }
         }
