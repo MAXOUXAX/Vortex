@@ -4,7 +4,7 @@ import me.maxouxax.vortex.BOT;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.GenericEvent;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,10 +21,11 @@ public class ForwardingListener implements EventListener {
 
     @Override
     public void onEvent(@NotNull GenericEvent event) {
-        if(event instanceof MessageReceivedEvent) onMessage((MessageReceivedEvent)event);
+        if(event instanceof GuildMessageReceivedEvent) onMessage((GuildMessageReceivedEvent)event);
     }
 
-    private void onMessage(MessageReceivedEvent event) {
+    private void onMessage(GuildMessageReceivedEvent event) {
+        if(event.getAuthor().isBot() || event.getAuthor().equals(bot.getJda().getSelfUser()))return;
         ArrayList<ForwardedChannel> forwardedChannels = bot.getForwardingManager().getForwardedChannelArrayList().stream().filter(forwardedChannel -> forwardedChannel.getGuild().getId().equalsIgnoreCase(event.getGuild().getId()) && forwardedChannel.getSource().getId().equalsIgnoreCase(event.getChannel().getId())).collect(Collectors.toCollection(ArrayList::new));
         if(!forwardedChannels.isEmpty()){
             forwardedChannels.forEach(forwardedChannel -> {
