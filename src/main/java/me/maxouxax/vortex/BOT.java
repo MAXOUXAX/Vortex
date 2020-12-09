@@ -1,11 +1,11 @@
-package me.maxouxax.stockbot;
+package me.maxouxax.vortex;
 
-import me.maxouxax.stockbot.commands.CommandMap;
-import me.maxouxax.stockbot.database.DatabaseManager;
-import me.maxouxax.stockbot.forwarding.ForwardingManager;
-import me.maxouxax.stockbot.listeners.DiscordListener;
-import me.maxouxax.stockbot.utils.ConfigurationManager;
-import me.maxouxax.stockbot.utils.ErrorHandler;
+import me.maxouxax.vortex.commands.CommandMap;
+import me.maxouxax.vortex.database.DatabaseManager;
+import me.maxouxax.vortex.forwarding.ForwardingManager;
+import me.maxouxax.vortex.listeners.DiscordListener;
+import me.maxouxax.vortex.utils.ConfigurationManager;
+import me.maxouxax.vortex.utils.ErrorHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;

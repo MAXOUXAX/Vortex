@@ -1,4 +1,4 @@
-package me.maxouxax.stockbot.database;
+package me.maxouxax.vortex.database;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

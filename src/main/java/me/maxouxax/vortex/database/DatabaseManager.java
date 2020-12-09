@@ -1,6 +1,6 @@
-package me.maxouxax.stockbot.database;
+package me.maxouxax.vortex.database;
 
-import me.maxouxax.stockbot.BOT;
+import me.maxouxax.vortex.BOT;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.CustomClassLoaderConstructor;
 import org.yaml.snakeyaml.introspector.BeanAccess;

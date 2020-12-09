@@ -1,8 +1,8 @@
-package me.maxouxax.stockbot.listeners;
+package me.maxouxax.vortex.listeners;
 
-import me.maxouxax.stockbot.BOT;
-import me.maxouxax.stockbot.commands.CommandMap;
-import me.maxouxax.stockbot.utils.EmbedCrafter;
+import me.maxouxax.vortex.BOT;
+import me.maxouxax.vortex.commands.CommandMap;
+import me.maxouxax.vortex.utils.EmbedCrafter;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;

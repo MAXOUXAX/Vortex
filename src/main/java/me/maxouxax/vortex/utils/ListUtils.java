@@ -1,4 +1,4 @@
-package me.maxouxax.stockbot.utils;
+package me.maxouxax.vortex.utils;
 
 import java.util.Iterator;
 

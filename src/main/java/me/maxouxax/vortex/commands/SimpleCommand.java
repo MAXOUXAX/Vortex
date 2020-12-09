@@ -1,4 +1,4 @@
-package me.maxouxax.stockbot.commands;
+package me.maxouxax.vortex.commands;
 
 import java.lang.reflect.Method;
 

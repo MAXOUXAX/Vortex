@@ -1,6 +1,6 @@
-package me.maxouxax.stockbot.utils;
+package me.maxouxax.vortex.utils;
 
-import me.maxouxax.stockbot.BOT;
+import me.maxouxax.vortex.BOT;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 

@@ -1,7 +1,7 @@
-package me.maxouxax.stockbot.forwarding;
+package me.maxouxax.vortex.forwarding;
 
-import me.maxouxax.stockbot.BOT;
-import me.maxouxax.stockbot.database.DatabaseManager;
+import me.maxouxax.vortex.BOT;
+import me.maxouxax.vortex.database.DatabaseManager;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class ForwardingManager {
 
-    private final ArrayList<ForwardedChannel> forwardedChannelArrayList = new ArrayList<ForwardedChannel>();
+    private final ArrayList<ForwardedChannel> forwardedChannelArrayList = new ArrayList<>();
     private final BOT bot;
 
     public ForwardingManager() throws SQLException {

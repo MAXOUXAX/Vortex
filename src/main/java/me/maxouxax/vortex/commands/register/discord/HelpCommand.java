@@ -1,9 +1,9 @@
-package me.maxouxax.stockbot.commands.register.discord;
+package me.maxouxax.vortex.commands.register.discord;
 
-import me.maxouxax.stockbot.commands.Command;
-import me.maxouxax.stockbot.commands.CommandMap;
-import me.maxouxax.stockbot.commands.SimpleCommand;
-import me.maxouxax.stockbot.utils.EmbedCrafter;
+import me.maxouxax.vortex.commands.Command;
+import me.maxouxax.vortex.commands.CommandMap;
+import me.maxouxax.vortex.commands.SimpleCommand;
+import me.maxouxax.vortex.utils.EmbedCrafter;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;

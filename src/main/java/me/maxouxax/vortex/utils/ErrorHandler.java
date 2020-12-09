@@ -1,6 +1,6 @@
-package me.maxouxax.stockbot.utils;
+package me.maxouxax.vortex.utils;
 
-import me.maxouxax.stockbot.BOT;
+import me.maxouxax.vortex.BOT;
 
 import java.util.Arrays;
 

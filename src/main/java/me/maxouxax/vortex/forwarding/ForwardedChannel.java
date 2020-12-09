@@ -1,4 +1,4 @@
-package me.maxouxax.stockbot.forwarding;
+package me.maxouxax.vortex.forwarding;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;

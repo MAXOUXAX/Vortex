@@ -1,6 +1,6 @@
-package me.maxouxax.stockbot.utils;
+package me.maxouxax.vortex.utils;
 
-import me.maxouxax.stockbot.database.DatabaseManager;
+import me.maxouxax.vortex.database.DatabaseManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

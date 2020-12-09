@@ -1,4 +1,4 @@
-package me.maxouxax.stockbot.database;
+package me.maxouxax.vortex.database;
 
 public class DatabaseCredentials {
 

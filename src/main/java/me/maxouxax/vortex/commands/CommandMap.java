@@ -1,9 +1,9 @@
-package me.maxouxax.stockbot.commands;
+package me.maxouxax.vortex.commands;
 
-import me.maxouxax.stockbot.BOT;
-import me.maxouxax.stockbot.commands.register.discord.*;
-import me.maxouxax.stockbot.database.DatabaseManager;
-import me.maxouxax.stockbot.utils.EmbedCrafter;
+import me.maxouxax.vortex.BOT;
+import me.maxouxax.vortex.commands.register.discord.*;
+import me.maxouxax.vortex.database.DatabaseManager;
+import me.maxouxax.vortex.utils.EmbedCrafter;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.Permission;
