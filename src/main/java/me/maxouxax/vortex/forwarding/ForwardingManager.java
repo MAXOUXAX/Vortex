@@ -88,4 +88,18 @@ public class ForwardingManager {
     public ArrayList<ForwardedChannel> getForwardedChannelArrayList() {
         return forwardedChannelArrayList;
     }
+
+    public void deleteForwardedChannel(ForwardedChannel forwardedChannel) {
+        try {
+            forwardedChannelArrayList.remove(forwardedChannel);
+            Connection connection = DatabaseManager.getDatabaseAccess().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM forwarded_channels WHERE uuid = ?");
+            preparedStatement.setString(1, forwardedChannel.getUuid().toString());
+
+            preparedStatement.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
 }

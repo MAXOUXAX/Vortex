@@ -64,6 +64,7 @@ public class CommandForward {
                     TextChannel source = message.getMentionedChannels().get(0);
                     ArrayList<ForwardedChannel> forwardedChannelArrayList = bot.getForwardingManager().getForwardedChannelArrayList().stream().filter(forwardedChannel -> forwardedChannel.getSource().getId().equalsIgnoreCase(source.getId())).collect(Collectors.toCollection(ArrayList::new));
                     if (forwardedChannelArrayList.size() > 1) {
+                        channel.sendMessage("Impossible de répondre à cette requête, plusieurs transferts ayant le même salon source ont été trouvés !").queue();
                         /*if(forwardedChannelArrayList.size() < 10) {
                             EmbedCrafter embedCrafter = listChannels(forwardedChannelArrayList);
                             embedCrafter.setTitle("Veuillez choisir le transfert à supprimer")
@@ -75,12 +76,21 @@ public class CommandForward {
                                 }
 
                             });
-                         */
-                        channel.sendMessage("Impossible de répondre à cette requête, plusieurs transferts ayant le même salon source ont été trouvés !").queue();
-                    } else {
-                        channel.sendMessage("Impossible de répondre à cette requête, plus de 10 transferts ayant le même salon source ont été trouvés !").queue();
-                    }
+                        } else {
+                            channel.sendMessage("Impossible de répondre à cette requête, plus de 10 transferts ayant le même salon source ont été trouvés !").queue();
+                        }*/
 
+                    } else {
+                        ForwardedChannel forwardedChannel = forwardedChannelArrayList.get(0);
+                        bot.getForwardingManager().deleteForwardedChannel(forwardedChannel);
+                        channel.sendMessage(new EmbedCrafter().setTitle("Suppression d'un transfert réussie !")
+                                .setDescription("Le transfert `" + forwardedChannel.getUuid().toString()+
+                                        "` transférant les messages venant de "+forwardedChannel.getSource().getAsMention()+
+                                        " vers "+forwardedChannel.getTarget().getAsMention()+
+                                        " en mentionnant le rôle "+forwardedChannel.getRole().getAsMention()+
+                                        " a bien été supprimé !")
+                                .setColor(Color.GREEN).build()).queue();
+                    }
                 }
             }
         }
