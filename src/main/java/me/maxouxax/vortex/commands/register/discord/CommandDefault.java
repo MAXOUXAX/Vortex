@@ -4,7 +4,6 @@ import me.maxouxax.vortex.BOT;
 import me.maxouxax.vortex.commands.Command;
 import me.maxouxax.vortex.commands.CommandMap;
 import me.maxouxax.vortex.utils.EmbedCrafter;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 
@@ -12,7 +11,6 @@ import java.awt.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
 public class CommandDefault {
 
@@ -150,38 +148,4 @@ public class CommandDefault {
         textChannel.sendMessage(builder.build()).queue();
     }
 
-    @Command(name = "sendrules", description = "Permet d'envoyer les règles dans le salon destiné.", type = Command.ExecutorType.CONSOLE)
-    private void sendRules(){
-        EmbedBuilder embedBuilder1 = new EmbedBuilder()
-                .setImage(bot.getConfigurationManager().getStringValue("rulesBanner")+"?size=1000")
-                .setColor(2895667);
-        EmbedBuilder embedBuilder2 = new EmbedBuilder()
-                .setTitle("Règles")
-                .setColor(15105570)
-                .setThumbnail(bot.getConfigurationManager().getStringValue("rulesEmbedThumbnail"))
-                .setDescription(":eight_pointed_black_star:️ 1 - Pas d'insulte\n:eight_pointed_black_star:️ 2 - Pas de majuscules abusives ou de spam/flood\n:eight_pointed_black_star:️ 3 - Pas de propos racistes, sexistes ou homophobes\n:eight_pointed_black_star:️ 4 - Aucune image à caractère raciste ou de type sexuelle (que ce soit en photo de profil ou en message)\n:eight_pointed_black_star:️ 5 - Pas d'appellation de jeux à caractère sexuel, violent ou raciste\n:eight_pointed_black_star:️ 6 - Pas de pseudos incorrects ou remplis d'émoticônes ou de caractères spéciaux empêchant de vous mentionner");
-        EmbedBuilder embedBuilder3 = new EmbedBuilder()
-                .setTitle("Modération")
-                .setThumbnail(bot.getConfigurationManager().getStringValue("rulesEmbedThumbnailModeration"))
-                .setColor(3066993)
-                .setDescription("Avant de pouvoir accèder à la totalité des fonctionnalités du Discord, vous devrez valider nos règles. Une fois celle-ci validées, vous aurez accès à l'ensemble du serveur et acceptez que notre équipe de modération peut vous sanctionner à tout moment si vous les enfreinez.");
-        EmbedBuilder embedBuilder4 = new EmbedBuilder()
-                .setTitle("Attention !")
-                .setColor(15158332)
-                .setThumbnail(bot.getConfigurationManager().getStringValue("rulesAttentionThumbnailUrl"))
-                .setDescription("Avant de pouvoir accèder au Discord, nous souhaitons nous assurer que vous acceptiez nos règles.\n\nÊtes-vous sûr d'accepter notre règlement ?\n\nSi vous ne respectez pas une règle, vous recevrez un avertissement.\n\nAu bout de 3 avertissements, vous serez banni définitivement du serveur.\n\n**DE PLUS**, si vous commetez une sanction très grave, l'équipe de modération se réserve le droit de vous bannir directement, sans avertissement.")
-                .setFooter("Ajoutez une réaction afin de rejoindre le serveur", bot.getConfigurationManager().getStringValue("rulesAttentionFooterIconUrl")+"?size=256");
-        TextChannel textChannel = Objects.requireNonNull(bot.getJda()
-                .getGuildById(bot.getConfigurationManager().getStringValue("guildId")))
-                .getTextChannelById(bot.getConfigurationManager().getStringValue("rulesTextChannelId"));
-        if(textChannel == null){
-            bot.getErrorHandler().handleException(new Exception("textChannel == null (the textchannel id or the guildid (or both) may not have been set in the config file)"));
-        }else {
-            textChannel.sendMessage(embedBuilder1.build()).queue();
-            textChannel.sendMessage(embedBuilder2.build()).queue();
-            textChannel.sendMessage(embedBuilder3.build()).queue();
-            textChannel.sendMessage(embedBuilder4.build()).queue(message -> message
-                    .addReaction(Objects.requireNonNull(textChannel.getGuild().getEmoteById(bot.getConfigurationManager().getStringValue("rulesAcceptEmoteId")))).queue());
-        }
-    }
 }

@@ -2,7 +2,9 @@ package me.maxouxax.vortex.forwarding;
 
 import me.maxouxax.vortex.BOT;
 import me.maxouxax.vortex.database.DatabaseManager;
+import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 
@@ -97,9 +99,16 @@ public class ForwardingManager {
             preparedStatement.setString(1, forwardedChannel.getUuid().toString());
 
             preparedStatement.execute();
+            connection.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public void forwardMessage(ForwardedChannel forwardedChannel, Message message) {
+          MessageBuilder messageBuilder = new MessageBuilder(forwardedChannel.getRole().getAsMention());
+          messageBuilder.append("\n").append(message.getContentRaw());
+          forwardedChannel.getTarget().sendMessage(messageBuilder.build()).queue();
     }
 
 }

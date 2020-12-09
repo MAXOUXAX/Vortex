@@ -27,6 +27,7 @@ public class CommandForward {
     @Command(name="forward",
             type = Command.ExecutorType.USER,
             description="Permet de configurer un profil de transfert",
+            power = 100,
             help = "forward help\nforward configure <#salon cible> <@role>\nforward list\nforward remove <#salon source>", example = "forward configure <#salon cible> <@role>")
     private void forward(TextChannel channel, Message message, String[] args) throws SQLException {
         if (args.length == 0 || args[0].equalsIgnoreCase("help")) {

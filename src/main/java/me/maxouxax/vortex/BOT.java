@@ -2,8 +2,8 @@ package me.maxouxax.vortex;
 
 import me.maxouxax.vortex.commands.CommandMap;
 import me.maxouxax.vortex.database.DatabaseManager;
-import me.maxouxax.vortex.forwarding.ForwardingListener;
 import me.maxouxax.vortex.forwarding.ForwardingManager;
+import me.maxouxax.vortex.forwarding.TaskPullMessages;
 import me.maxouxax.vortex.listeners.DiscordListener;
 import me.maxouxax.vortex.utils.ConfigurationManager;
 import me.maxouxax.vortex.utils.ErrorHandler;
@@ -18,6 +18,9 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class BOT implements Runnable{
 
@@ -28,7 +31,9 @@ public class BOT implements Runnable{
     private final Logger logger;
     private final ErrorHandler errorHandler;
     private final ConfigurationManager configurationManager;
+
     private final ForwardingManager forwardingManager;
+    private ScheduledExecutorService scheduledExecutorService;
 
     private boolean running;
     private final String version;
@@ -58,6 +63,8 @@ public class BOT implements Runnable{
         logger.info("> JDA loaded!");
 
         this.forwardingManager = new ForwardingManager();
+        this.scheduledExecutorService = Executors.newScheduledThreadPool(16);
+        scheduledExecutorService.scheduleAtFixedRate(new TaskPullMessages(), 5, 5, TimeUnit.SECONDS);
 
         logger.info("> The BOT is now good to go !");
         logger.info("--------------- STARTING ---------------");
@@ -78,7 +85,6 @@ public class BOT implements Runnable{
                 GatewayIntent.GUILD_VOICE_STATES)
                 .build();
         jda.addEventListener(new DiscordListener(commandMap));
-        jda.addEventListener(new ForwardingListener());
         jda.getPresence().setActivity(Activity.playing(configurationManager.getStringValue("gameName")));
         jda.awaitReady();
     }
