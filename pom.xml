@@ -6,7 +6,7 @@
 
     <groupId>me.maxouxax</groupId>
     <artifactId>Vortex</artifactId>
-    <version>1.0.4-RELEASE</version>
+    <version>1.0.5-RELEASE</version>
 
     <build>
         <plugins>
