@@ -107,7 +107,7 @@ public class ForwardingManager {
 
     public void forwardMessage(ForwardedChannel forwardedChannel, Message message) {
         MessageBuilder messageBuilder = new MessageBuilder(forwardedChannel.getRole().getAsMention());
-        messageBuilder.append("\n").setEmbed(new EmbedCrafter().setTitle(":rotating_light: Alerte disponibilité "+forwardedChannel.getRole().getName(), "https://discord.gg/an2x2cn").setDescription(message.getContentRaw()).build());
+        messageBuilder.append("\n").setEmbed(new EmbedCrafter().setTitle(":rotating_light: Alerte disponibilité "+forwardedChannel.getRole().getName(), "https://discord.gg/an2x2cn").setDescription(message.getContentRaw()).setColor(15158332).build());
         List<MessageEmbed> embeds = message.getEmbeds();
         embeds.forEach(messageEmbed -> {
             if(messageEmbed.getDescription().equalsIgnoreCase("Powered by distill.io") || messageEmbed.getDescription().equalsIgnoreCase(":lelogodesbavards: Bulletin d'information pour @deleted-role")){
