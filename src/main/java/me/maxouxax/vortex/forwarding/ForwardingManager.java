@@ -2,15 +2,15 @@ package me.maxouxax.vortex.forwarding;
 
 import me.maxouxax.vortex.BOT;
 import me.maxouxax.vortex.database.DatabaseManager;
+import me.maxouxax.vortex.utils.EmbedCrafter;
 import net.dv8tion.jda.api.MessageBuilder;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class ForwardingManager {
 
@@ -106,9 +106,17 @@ public class ForwardingManager {
     }
 
     public void forwardMessage(ForwardedChannel forwardedChannel, Message message) {
-          MessageBuilder messageBuilder = new MessageBuilder(forwardedChannel.getRole().getAsMention());
-          messageBuilder.append("\n").append(message.getContentRaw());
-          forwardedChannel.getTarget().sendMessage(messageBuilder.build()).queue();
+        MessageBuilder messageBuilder = new MessageBuilder(forwardedChannel.getRole().getAsMention());
+        messageBuilder.append("\n").setEmbed(new EmbedCrafter().setTitle(":rotating_light: Alerte disponibilité "+forwardedChannel.getRole().getName()).setDescription(message.getContentRaw()).build());
+        List<MessageEmbed> embeds = message.getEmbeds();
+
+        forwardedChannel.getTarget().sendMessage(messageBuilder.build()).queue();
+
+        if (!embeds.isEmpty()) {
+            embeds.forEach(messageEmbed -> {
+                forwardedChannel.getTarget().sendMessage(messageEmbed).queueAfter(1, TimeUnit.SECONDS);
+            });
+        }
     }
 
 }
