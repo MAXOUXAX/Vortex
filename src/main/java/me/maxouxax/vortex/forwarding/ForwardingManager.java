@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.entities.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -110,7 +111,7 @@ public class ForwardingManager {
         messageBuilder.append("\n").setEmbed(new EmbedCrafter().setTitle(":rotating_light: Alerte disponibilité "+forwardedChannel.getRole().getName(), "https://discord.gg/an2x2cn").setDescription(message.getContentRaw()).setColor(15158332).build());
         List<MessageEmbed> embeds = message.getEmbeds();
         embeds.forEach(messageEmbed -> {
-            if(messageEmbed.getDescription().equalsIgnoreCase("Powered by distill.io") || messageEmbed.getDescription().equalsIgnoreCase(":lelogodesbavards: Bulletin d'information pour @deleted-role")){
+            if(Objects.requireNonNull(messageEmbed.getDescription()).equalsIgnoreCase("Powered by distill.io") || Objects.requireNonNull(messageEmbed.getDescription()).equalsIgnoreCase(":lelogodesbavards: Bulletin d'information pour @deleted-role")){
                 embeds.remove(messageEmbed);
             }
         });
