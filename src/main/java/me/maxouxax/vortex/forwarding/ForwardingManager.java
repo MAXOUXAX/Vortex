@@ -110,11 +110,16 @@ public class ForwardingManager {
         MessageBuilder messageBuilder = new MessageBuilder(forwardedChannel.getRole().getAsMention());
         messageBuilder.append("\n").setEmbed(new EmbedCrafter().setTitle(":rotating_light: Alerte disponibilité "+forwardedChannel.getRole().getName(), "https://discord.gg/an2x2cn").setDescription(message.getContentRaw()).setColor(15158332).build());
         List<MessageEmbed> embeds = message.getEmbeds();
-        embeds.forEach(messageEmbed -> {
-            if(messageEmbed != null && (Objects.requireNonNull(messageEmbed.getDescription()).equalsIgnoreCase("Powered by distill.io") || Objects.requireNonNull(messageEmbed.getDescription()).equalsIgnoreCase(":lelogodesbavards: Bulletin d'information pour @deleted-role"))){
-                embeds.remove(messageEmbed);
-            }
-        });
+        System.out.println("embeds = " + embeds);
+        if(!embeds.isEmpty()) {
+            embeds.forEach(messageEmbed -> {
+                System.out.println("messageEmbed = " + messageEmbed);
+                System.out.println("messageEmbed.getDescription() = " + messageEmbed.getDescription());
+                if (messageEmbed != null && (Objects.requireNonNull(messageEmbed.getDescription()).equalsIgnoreCase("Powered by distill.io") || Objects.requireNonNull(messageEmbed.getDescription()).equalsIgnoreCase(":lelogodesbavards: Bulletin d'information pour @deleted-role"))) {
+                    embeds.remove(messageEmbed);
+                }
+            });
+        }
 
         forwardedChannel.getTarget().sendMessage(messageBuilder.build()).queue();
 
