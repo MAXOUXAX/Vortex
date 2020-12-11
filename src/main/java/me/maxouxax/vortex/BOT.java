@@ -1,6 +1,5 @@
 package me.maxouxax.vortex;
 
-import io.sentry.Sentry;
 import me.maxouxax.vortex.commands.CommandMap;
 import me.maxouxax.vortex.database.DatabaseManager;
 import me.maxouxax.vortex.forwarding.ForwardingManager;
@@ -54,10 +53,6 @@ public class BOT implements Runnable{
         this.configurationManager = new ConfigurationManager();
 
         logger.info("--------------- STARTING ---------------");
-
-        logger.info("> Initializing Sentry...");
-        Sentry.init();
-        logger.info("> Sentry initialized !");
 
         logger.info("> Generated new BOT instance");
         logger.info("> BOT thread started, loading libraries...");
