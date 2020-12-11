@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.entities.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -109,19 +110,21 @@ public class ForwardingManager {
         messageBuilder.append("\n").setEmbed(new EmbedCrafter().setTitle(":rotating_light: Alerte disponibilité "+forwardedChannel.getRole().getName(), "https://discord.gg/an2x2cn").setDescription(message.getContentRaw()).setColor(15158332).build());
         ArrayList<MessageEmbed> embeds = new ArrayList<>(message.getEmbeds());
         if(!embeds.isEmpty()) {
-            embeds.forEach(messageEmbed -> {
+            Iterator<MessageEmbed> embedIterator = embeds.iterator();
+            while(embedIterator.hasNext()){
+                MessageEmbed messageEmbed = embedIterator.next();
                 if (messageEmbed != null){
                     if(messageEmbed.getDescription() != null){
                         if(messageEmbed.getDescription().startsWith("<:lelogodesbavards:743574314019979372> *Bulletin d'information pour*")) {
-                            embeds.remove(messageEmbed);
+                            embedIterator.remove();
                         }
                     }else if(messageEmbed.getFooter() != null && messageEmbed.getFooter().getText() != null) {
                         if (messageEmbed.getFooter().getText().equalsIgnoreCase("Powered by distill.io")) {
-                            embeds.remove(messageEmbed);
+                            embedIterator.remove();
                         }
                     }
                 }
-            });
+            }
         }
 
         forwardedChannel.getTarget().sendMessage(messageBuilder.build()).queue();
