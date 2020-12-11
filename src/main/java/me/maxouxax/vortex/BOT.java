@@ -1,5 +1,6 @@
 package me.maxouxax.vortex;
 
+import io.sentry.Sentry;
 import me.maxouxax.vortex.commands.CommandMap;
 import me.maxouxax.vortex.database.DatabaseManager;
 import me.maxouxax.vortex.forwarding.ForwardingManager;
@@ -46,13 +47,17 @@ public class BOT implements Runnable{
         DatabaseManager.initDatabaseConnection();
 
         String string = new File(BOT.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getName();
-        string = string.replaceAll("StockBot-", "")
+        string = string.replaceAll("Vortex-", "")
                 .replaceAll(".jar", "");
         this.version = string;
 
         this.configurationManager = new ConfigurationManager();
 
         logger.info("--------------- STARTING ---------------");
+
+        logger.info("> Initializing Sentry...");
+        Sentry.init();
+        logger.info("> Sentry initialized !");
 
         logger.info("> Generated new BOT instance");
         logger.info("> BOT thread started, loading libraries...");
