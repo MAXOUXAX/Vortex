@@ -8,7 +8,6 @@ import net.dv8tion.jda.api.entities.*;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -108,7 +107,7 @@ public class ForwardingManager {
     public void forwardMessage(ForwardedChannel forwardedChannel, Message message) {
         MessageBuilder messageBuilder = new MessageBuilder(forwardedChannel.getRole().getAsMention());
         messageBuilder.append("\n").setEmbed(new EmbedCrafter().setTitle(":rotating_light: Alerte disponibilité "+forwardedChannel.getRole().getName(), "https://discord.gg/an2x2cn").setDescription(message.getContentRaw()).setColor(15158332).build());
-        List<MessageEmbed> embeds = message.getEmbeds();
+        ArrayList<MessageEmbed> embeds = new ArrayList<>(message.getEmbeds());
         if(!embeds.isEmpty()) {
             embeds.forEach(messageEmbed -> {
                 if (messageEmbed != null){
